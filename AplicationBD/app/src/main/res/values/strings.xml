@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AplicationBD</string>
+    <string name="tituloAplicacao">Trabalhando Com banco de dados</string>
 </resources>
