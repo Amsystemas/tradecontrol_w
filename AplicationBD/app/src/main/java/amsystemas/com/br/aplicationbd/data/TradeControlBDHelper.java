@@ -1,17 +1,8 @@
 package amsystemas.com.br.aplicationbd.data;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by arthu on 30/07/2016.
@@ -32,7 +23,7 @@ public class TradeControlBDHelper extends SQLiteOpenHelper{
     /**
      * versao atual da base de dados
      */
-    public static final int DATABASE_VERSION=1;
+    public static final int DATABASE_VERSION=2;
     //Nome da base de dados no dispositivo
     static final String DATABASE_NAME ="tradecontrol.db";
     //Nome do arquivo DDL que voce quer carregar enquanto cria base de daddo
@@ -49,13 +40,14 @@ public class TradeControlBDHelper extends SQLiteOpenHelper{
         //cria uma tabela para manter os dados do veiculo. Um veiculo consiste de uma placa
         // a quilometragem
         //A base de dados nao existe. Carrega DDL de um arquivo no diretorio assets
-        try {
-            loadSQLFrom(this.CREATE_DATABASE_FILENAME, db);
-        }catch (Throwable t){
-            //problema ao criar database
-            throw new RuntimeException(t);
-        }
+       final String SQL_CREATE_Veiculo_Table ="Create Table " + TradeControlContract.VeiculoEntry.TABLE_NAME + " (" +
+               TradeControlContract.VeiculoEntry._ID + " INTEGER PRIMARY KEY," +
+               TradeControlContract.VeiculoEntry.Column_Veiculo_Placa + " TEXT UNIQUE NOT NULL," +
+               TradeControlContract.VeiculoEntry.Column_Veiculo_Quilometragem + " TEXT NOT NULL" + ");";
+        db.execSQL(SQL_CREATE_Veiculo_Table);
+
     }
+    /*
     //Uma  funcao para carregar um declaracao SQl na hora de usar o metodo execSQL
     private void loadSQLFrom(String asserFilename,SQLiteDatabase db){
         List<String>statements = getDDLStatementsFrom(asserFilename);
@@ -82,13 +74,16 @@ public class TradeControlBDHelper extends SQLiteOpenHelper{
         //escreve a logica aqui para ver se é null, vazia ou etc
         return true; //no momento
     }
-
+    */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         //use antigo e nova versao para executar declaracao DDL
         //para atualizar a base de dados
+        db.execSQL("DROP TABLE IF EXISTS" + TradeControlContract.VeiculoEntry.TABLE_NAME);
+        onCreate(db);
     }
+    /*
     //usando sua especificao para lembrar o context da aplicacao
     //entao usando este contexto da aplicação para ler  o assets
     private String getStringFromAssetFile(String filename){
@@ -116,6 +111,7 @@ public class TradeControlBDHelper extends SQLiteOpenHelper{
         }
         return baos.toString();
     }
+    */
     //Aqui sao alguns exemplos de como pegar acesso e ler and escrever base de dados
     //Este metodos vai fazer mais sentido depois
     //a transacao aplicada atraves proxies dinamicos
@@ -128,6 +124,7 @@ public class TradeControlBDHelper extends SQLiteOpenHelper{
         return new WriteDataseContext(this.getWritableDatabase());
     }
     */
+
 }
 //Aqui é o codigo para Myapplication retornar o contexto
 
