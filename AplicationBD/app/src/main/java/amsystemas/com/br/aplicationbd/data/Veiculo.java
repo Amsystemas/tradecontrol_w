@@ -11,6 +11,8 @@ public class Veiculo extends BaseEntity {
     //************
     private String placa;
     private int quilometragem;
+    private long data;
+
     //************
     public Veiculo(String ownedAccount, String createBy, Date createdOn, String lastUpdateBy, Date lastUpdateOn, String placa, int Quilometragem){
         super(ownedAccount,createBy,createdOn,lastUpdateBy,lastUpdateOn,-1);
@@ -49,11 +51,19 @@ public class Veiculo extends BaseEntity {
         return quilometragem;
     }
 
+    public long getData() {
+        return data;
+    }
+
     public void setPlaca(String placa) {
         this.placa = placa;
     }
 
     public void setQuilometragem(int quilometragem) {
         this.quilometragem = quilometragem;
+    }
+
+    public void setData(long data) {
+        this.data = data;
     }
 }

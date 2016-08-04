@@ -23,7 +23,7 @@ public class TradeControlBDHelper extends SQLiteOpenHelper{
     /**
      * versao atual da base de dados
      */
-    public static final int DATABASE_VERSION=2;
+    public static final int DATABASE_VERSION=3;
     //Nome da base de dados no dispositivo
     static final String DATABASE_NAME ="tradecontrol.db";
     //Nome do arquivo DDL que voce quer carregar enquanto cria base de daddo
@@ -43,7 +43,8 @@ public class TradeControlBDHelper extends SQLiteOpenHelper{
        final String SQL_CREATE_Veiculo_Table ="Create Table " + TradeControlContract.VeiculoEntry.TABLE_NAME + " (" +
                TradeControlContract.VeiculoEntry._ID + " INTEGER PRIMARY KEY," +
                TradeControlContract.VeiculoEntry.Column_Veiculo_Placa + " TEXT UNIQUE NOT NULL," +
-               TradeControlContract.VeiculoEntry.Column_Veiculo_Quilometragem + " TEXT NOT NULL" + ");";
+               TradeControlContract.VeiculoEntry.Column_Veiculo_Quilometragem + " TEXT NOT NULL," +
+               TradeControlContract.VeiculoEntry.Column_Veiculo_Data + " INTEGER NOT NULL " +");";
         db.execSQL(SQL_CREATE_Veiculo_Table);
 
     }

@@ -52,9 +52,37 @@ public class TradeControlContract {
         public static final String Column_Veiculo_Placa="placa";
         //A quilometragem do veiculo
         public static final String Column_Veiculo_Quilometragem="quilometragem";
+        // Data
+        public static final String Column_Veiculo_Data ="date";
+        //Uma localizacao setting is que ser enviado
+        public static final String COLUMN_LOCATION_SETTING ="location";
 
         public static Uri buildVeiculoUri(long id){
             return ContentUris.withAppendedId(CONTENT_URI,id);
+        }
+        //
+        public static Uri buildVeiculowithStartDate(String locationSetting, long startDate){
+            long normalizeDate = normalizeDate(startDate);
+            return CONTENT_URI.buildUpon().appendPath(locationSetting).appendQueryParameter(Column_Veiculo_Data, Long.toString(normalizeDate)).build();
+        }
+        public static Uri buildVeiculoWithPlaca(String locationSetting,String placa){
+            return CONTENT_URI.buildUpon().appendPath(locationSetting).appendQueryParameter(Column_Veiculo_Placa,placa).build();
+        }
+        public static Uri buildVeiculoWithDate(String locationSetting, long date){
+            return CONTENT_URI.buildUpon().appendPath(locationSetting).appendPath(Long.toString(normalizeDate(date))).build();
+        }
+        public static String getVeiculoSettingFromUri(Uri uri){
+            return uri.getPathSegments().get(1);
+        }
+        public static long getDateFromUri(Uri uri){
+            return Long.parseLong(uri.getPathSegments().get(2));
+        }
+        public static long getStartDateFromUri(Uri uri){
+            String dateString = uri.getQueryParameter(Column_Veiculo_Data);
+            if(null != dateString && dateString.length()>0)
+                return Long.parseLong(dateString);
+            else
+                return 0;
         }
 
     }

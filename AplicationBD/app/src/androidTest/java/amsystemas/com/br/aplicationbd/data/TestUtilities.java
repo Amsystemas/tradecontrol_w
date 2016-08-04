@@ -11,10 +11,12 @@ import java.util.Set;
  * Created by arthur on 02/08/16.
  */
 public class TestUtilities extends AndroidTestCase {
+    static final long TEST_DATE = 1419033600L;
     static ContentValues createsVeiculoValues(){
         ContentValues testValues = new ContentValues();
         testValues.put(TradeControlContract.VeiculoEntry.Column_Veiculo_Placa,"AOL5459");
         testValues.put(TradeControlContract.VeiculoEntry.Column_Veiculo_Quilometragem,"168000");
+        testValues.put(TradeControlContract.VeiculoEntry.Column_Veiculo_Data,TEST_DATE);
         return testValues;
     }
     static void validateCurrentRecord(String error, Cursor valueCursor, ContentValues expectedValues){
